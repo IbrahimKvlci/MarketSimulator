@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -9,16 +10,25 @@ public class CharacterMovement : MonoBehaviour
     Vector3 _velocity;
 
 
-    [SerializeField] float _speed,_gravitiy=-9.81f,_jumpHight;
+    [SerializeField] float _speed,_gravitiy=-9.81f,_jumpHeight;
     float _horizontal, _vertical;
 
-    bool _isGrounded=true;
+    bool _isGrounded;
     void Start()
     {
 
         _controller= GetComponent<CharacterController>();
     }
 
+    private void Update()
+    {
+        if (_controller.collisionFlags == CollisionFlags.Below)
+        {
+            _isGrounded = true;
+            Debug.Log("calisti");
+        }
+        Jump(_jumpHeight);
+    }
 
     void FixedUpdate()
     {
@@ -26,15 +36,16 @@ public class CharacterMovement : MonoBehaviour
         _vertical = Input.GetAxisRaw("Vertical");
 
         Movement(_horizontal,_vertical);
-        Jump(_jumpHight);
+        
+        
     }
 
-    void Jump(float jumpHight)
+    void Jump(float jumpHeight)
     {
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
             _isGrounded = false;
-            _velocity.y = Mathf.Sqrt(jumpHight * -2 * _gravitiy);
+            _velocity.y = Mathf.Sqrt(jumpHeight * -2 * _gravitiy);
         }
     }
 
@@ -47,9 +58,4 @@ public class CharacterMovement : MonoBehaviour
         _controller.Move(_velocity*Time.deltaTime);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        _isGrounded = true;
-        Debug.Log("degdi");
-    }
 }

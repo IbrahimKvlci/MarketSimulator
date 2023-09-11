@@ -10,7 +10,6 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] float _mouseSensivity=100f;
 
     float xRotation = 0f;
-    float yRotation = 0f;
 
     void Start()
     {
