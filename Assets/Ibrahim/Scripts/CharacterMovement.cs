@@ -25,7 +25,6 @@ public class CharacterMovement : MonoBehaviour
         if (_controller.collisionFlags == CollisionFlags.Below)
         {
             _isGrounded = true;
-            Debug.Log("calisti");
         }
         Jump(_jumpHeight);
     }
