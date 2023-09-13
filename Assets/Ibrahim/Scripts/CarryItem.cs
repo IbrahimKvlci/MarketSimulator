@@ -7,6 +7,9 @@ public class CarryItem : MonoBehaviour
     Outline _outline;
 
     GameObject _player;
+
+
+
     void Start()
     {
         _outline = GetComponent<Outline>();
@@ -20,6 +23,9 @@ public class CarryItem : MonoBehaviour
         {
             _outline.enabled = false;
         }
-       
+
+
+        
+
     }
 }
