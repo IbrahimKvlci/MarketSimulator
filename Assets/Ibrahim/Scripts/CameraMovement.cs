@@ -9,7 +9,7 @@ public class CameraMovement : MonoBehaviour
 
     [SerializeField] float _mouseSensivity=100f;
 
-    float xRotation = 0f;
+    float xRotation,yRotation = 0f;
 
     void Start()
     {
@@ -27,7 +27,16 @@ public class CameraMovement : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        _playerTransform.Rotate(Vector3.up * mouseX);
+        if(_playerTransform != null)
+        {
+            _playerTransform.Rotate(Vector3.up * mouseX);
+        }
+        else
+        {
+            yRotation += mouseX;
+            transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        }
+        
     
     }
 }   

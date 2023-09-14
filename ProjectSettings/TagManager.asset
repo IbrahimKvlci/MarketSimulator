@@ -6,6 +6,7 @@ TagManager:
   tags:
   - carryitem
   - ground
+  - carcamera
   layers:
   - Default
   - TransparentFX
