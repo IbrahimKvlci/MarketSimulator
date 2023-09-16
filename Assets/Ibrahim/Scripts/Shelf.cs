@@ -10,6 +10,8 @@ public class Shelf : MonoBehaviour
      
     public GameObject _products;
 
+    public int _producsCount;
+
 
     void Start()
     {
@@ -19,30 +21,24 @@ public class Shelf : MonoBehaviour
 
     void Update()
     {
-        if (_products != null && transform.childCount == 1)
+
+
+
+        if (transform.childCount > 1)
         {
-            var products=Instantiate(_products);
-            products.transform.SetParent(transform);
+            _products = transform.GetChild(1).gameObject;
             SetProductCountText();
         }
-        else if(_products==null)
+        else
         {
             _productsCountText.text = "0";
         }
-
-        //if (transform.childCount > 1)
-        //{
-        //    _products = transform.GetChild(1).gameObject;
-        //    SetProductCountText();
-        //}
-        //else
-        //{
-        //    _productsCountText.text = "0";
-        //}
     }
 
     void SetProductCountText()
     {
         _productsCountText.text=_products.GetComponent<ProductsOnShelf>()._currentProductsCount.ToString();
     }
+
+
 }

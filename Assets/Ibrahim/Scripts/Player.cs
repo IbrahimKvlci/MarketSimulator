@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
     GameObject _carryObject;
 
     [SerializeField] float _range,_rotateSpeed,_carryingDistanceMax,_carryingDistanceMin;
+    [SerializeField] int _productsCount;
 
     [SerializeField]bool _isCarrying;
     public bool _isOutlined;
@@ -29,7 +31,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         PickUp();
-
+        PutProductsToShelf(_product,_productsCount);
     }
 
     void PickUp()
@@ -135,6 +137,69 @@ public class Player : MonoBehaviour
 
         
 
+    }
+
+    void PutProductsToShelf(GameObject products,int productsCount)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, 5))
+        {
+
+            if (hit.collider.tag == "shelf")
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    Debug.Log(productsCount);
+                    if (hit.collider.transform.childCount>1)
+                    {
+
+                        if(_product.tag== hit.collider.transform.GetChild(1).tag)
+                        {
+                            int productsOnShelfCount = hit.collider.transform.GetChild(1).GetComponent<ProductsOnShelf>()._currentProductsCount;
+                            int productsMaxCount = hit.collider.transform.GetChild(1).GetComponent<ProductsOnShelf>()._maxProductsCount;
+                            int productsWillAddCount = productsCount;
+                            if (productsWillAddCount + productsOnShelfCount <= productsMaxCount)
+                            {
+                                hit.collider.transform.GetChild(1).GetComponent<ProductsOnShelf>()._currentProductsCount += productsWillAddCount;
+                                _productsCount = 0;
+                            }
+                            else
+                            {
+                                hit.collider.transform.GetChild(1).GetComponent<ProductsOnShelf>()._currentProductsCount += productsWillAddCount;
+                                _productsCount = productsWillAddCount - (productsMaxCount - productsOnShelfCount);
+                            }
+                        }
+                        
+
+                    }
+                    else if(_product!=null&&_productsCount>0)
+                    {
+                        var product = Instantiate(_product);
+                        product.transform.SetParent(hit.collider.transform);
+                        product.transform.localScale= Vector3.one;
+                        product.transform.localPosition = Vector3.zero;
+                        product.transform.localRotation= Quaternion.identity;
+                        if (_productsCount <= product.GetComponent<ProductsOnShelf>()._maxProductsCount)
+                        {
+                            product.GetComponent<ProductsOnShelf>()._currentProductsCount = _productsCount;
+                            _productsCount = 0;
+                        }
+                        else
+                        {
+                            product.GetComponent<ProductsOnShelf>()._currentProductsCount = product.GetComponent<ProductsOnShelf>()._maxProductsCount;
+                            _productsCount -= product.GetComponent<ProductsOnShelf>()._maxProductsCount;
+                        }
+                        
+                    }
+                    if (_productsCount == 0)
+                    {
+                        _product= null;
+                    }
+
+                }
+            }
+        }
+       
     }
 
     void TakeProductOnShelf()

@@ -9,6 +9,8 @@ TagManager:
   - carcamera
   - shelf
   - productsonshelf
+  - doritos
+  - prlngels
   layers:
   - Default
   - TransparentFX

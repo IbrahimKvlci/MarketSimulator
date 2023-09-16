@@ -42,6 +42,8 @@ public class ProductsOnShelf : MonoBehaviour
                 var product = Instantiate(_product);
                 product.transform.SetParent(transform.GetChild(i));
                 product.transform.localPosition = Vector3.zero;
+                product.transform.localRotation = Quaternion.identity;
+                product.transform.localScale = Vector3.one;
             }
             
         }
