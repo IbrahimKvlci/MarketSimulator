@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
 
-    [SerializeField] GameObject _camera;
+    [SerializeField] GameObject _camera,_product;
     [SerializeField] Transform _carryObjectPosition;
     [SerializeField] LayerMask _layerMask;
     Outline _outline;
@@ -15,12 +16,13 @@ public class Player : MonoBehaviour
 
     [SerializeField] float _range,_rotateSpeed,_carryingDistanceMax,_carryingDistanceMin;
 
-    bool _isCarrying;
+    [SerializeField]bool _isCarrying;
     public bool _isOutlined;
 
     void Start()
     {
         _isCarrying = false;
+
     }
 
 
@@ -58,10 +60,14 @@ public class Player : MonoBehaviour
                             _outline.enabled = false;
                             hit.transform.gameObject.transform.SetParent(_carryObjectPosition);
                             hit.transform.localPosition = Vector3.zero;
-                        hit.transform.localRotation = Quaternion.identity;
+                            hit.transform.localRotation = Quaternion.identity;
+                            if (hit.transform.GetComponent<Rigidbody>() == null)
+                            {
+                                hit.transform.AddComponent<Rigidbody>();
+                            }
                             hit.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                             _isCarrying = true;
-
+                            
                         }
                         _isOutlined = true;
                     
@@ -101,11 +107,16 @@ public class Player : MonoBehaviour
                 _carryObjectPosition.DetachChildren();
                 _carryObject.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 _carryObject = null;
-                _outline.enabled = true;
+                if (_outline != null)
+                {
+                    _outline.enabled = true;
+
+                }
 
                 _isCarrying = false;
             }
-                
+
+
         }
         
         if (_isCarrying)
@@ -121,10 +132,26 @@ public class Player : MonoBehaviour
             }   
         }
 
-        
 
         
+
     }
 
+    void TakeProductOnShelf()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(_camera.transform.position,_camera.transform.forward, out hit, 5))
+        {
+            if (hit.collider.tag == "shelf")
+            {
 
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+
+        }
+    }
+
+    
 }
