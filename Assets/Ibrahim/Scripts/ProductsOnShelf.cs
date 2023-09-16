@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProductsOnShelf : MonoBehaviour
 {
-    [SerializeField] GameObject _product;
+    public GameObject _product;
 
     public int _maxProductsCount,_currentProductsCount;
 
@@ -29,7 +29,9 @@ public class ProductsOnShelf : MonoBehaviour
         else
         {
             _currentProductsCount=0;
+            
         }
+        DestroyProducts();
         
     }
 
@@ -57,6 +59,14 @@ public class ProductsOnShelf : MonoBehaviour
             {
                 Destroy(transform.GetChild(i).GetChild(0).gameObject);
             }
+        }
+    }
+
+    void DestroyProducts()
+    {
+        if (_currentProductsCount==0)
+        {
+            Destroy(this.gameObject);
         }
     }
 }

@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     {
         PickUp();
         PutProductsToShelf(_product,_productsCount);
+        TakeProductOnShelf();
     }
 
     void PickUp()
@@ -45,34 +46,34 @@ public class Player : MonoBehaviour
                 {
                     _outline = hit.transform.GetComponent<Outline>();
 
-                    
 
-                        if (_outline != null)
+
+                    if (_outline != null)
+                    {
+                        _outline.enabled = true;
+                    }
+                    else
+                    {
+                        _outline = hit.transform.gameObject.AddComponent<Outline>();
+                    }
+                    if (Input.GetKeyUp(KeyCode.E))
+                    {
+                        Debug.Log("aldi");
+                        _carryObject = hit.transform.gameObject;
+                        _outline.enabled = false;
+                        hit.transform.gameObject.transform.SetParent(_carryObjectPosition);
+                        hit.transform.localPosition = Vector3.zero;
+                        hit.transform.localRotation = Quaternion.identity;
+                        if (hit.transform.GetComponent<Rigidbody>() == null)
                         {
-                            _outline.enabled = true;
+                            hit.transform.AddComponent<Rigidbody>();
                         }
-                        else
-                        {
-                            _outline = hit.transform.gameObject.AddComponent<Outline>();
-                        }
-                        if (Input.GetKeyUp(KeyCode.E))
-                        {
-                            Debug.Log("aldi");
-                            _carryObject = hit.transform.gameObject;
-                            _outline.enabled = false;
-                            hit.transform.gameObject.transform.SetParent(_carryObjectPosition);
-                            hit.transform.localPosition = Vector3.zero;
-                            hit.transform.localRotation = Quaternion.identity;
-                            if (hit.transform.GetComponent<Rigidbody>() == null)
-                            {
-                                hit.transform.AddComponent<Rigidbody>();
-                            }
-                            hit.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                            _isCarrying = true;
-                            
-                        }
-                        _isOutlined = true;
-                    
+                        hit.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                        _isCarrying = true;
+
+                    }
+                    _isOutlined = true;
+
 
 
 
@@ -91,7 +92,7 @@ public class Player : MonoBehaviour
             if(Physics.Raycast(_camera.transform.position,_camera.transform.forward,out hit, 5,_layerMask)&& hit.transform.tag == "ground")
             {
 
-                float objectScale = _carryObject.GetComponent<Renderer>().bounds.extents.y;
+                float objectScale = _carryObject.GetComponent<Collider>().bounds.extents.y+0.5f;
                 _carryObject.transform.position = hit.point + Vector3.up * objectScale;
                 _carryObject.transform.rotation = Quaternion.Euler(0, _carryObject.transform.eulerAngles.y, _carryObject.transform.eulerAngles.z);
 
@@ -118,9 +119,11 @@ public class Player : MonoBehaviour
                 _isCarrying = false;
             }
 
-
+                
         }
+       
         
+
         if (_isCarrying)
         {
             if (Input.GetKey(KeyCode.Q))
@@ -209,14 +212,29 @@ public class Player : MonoBehaviour
         {
             if (hit.collider.tag == "shelf")
             {
-
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    if (hit.collider.transform.childCount > 1&&!_isCarrying)
+                    {
+                        GameObject product=Instantiate(hit.collider.transform.GetChild(1).GetComponent<ProductsOnShelf>()._product);
+                        product.transform.SetParent(_carryObjectPosition);
+                        product.transform.localPosition = Vector3.zero;
+                        product.transform.localRotation = Quaternion.identity;
+                        if (product.transform.GetComponent<Rigidbody>() == null)
+                        {
+                            product.transform.AddComponent<Rigidbody>();
+                        }
+                        product.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                        _carryObject = product;
+                        _isCarrying = true;
+                        hit.collider.transform.GetChild(1).GetComponent<ProductsOnShelf>()._currentProductsCount -= 1;
+                    }
+                }
             }
         }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
 
-        }
     }
 
+    
     
 }

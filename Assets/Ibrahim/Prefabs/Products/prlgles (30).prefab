@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 303271774170951420}
   - component: {fileID: 3584099151780052579}
   - component: {fileID: 5278922553063890898}
+  - component: {fileID: 2950817332453881021}
+  - component: {fileID: -2228220752566074944}
   m_Layer: 0
   m_Name: prlgles (30)
-  m_TagString: Untagged
+  m_TagString: carryitem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,3 +107,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 83.75222, y: 290.0967, z: 83.75233}
   m_Center: {x: 0.28372198, y: 145.04836, z: 0.0001926422}
+--- !u!114 &2950817332453881021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541092026271168416}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &-2228220752566074944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541092026271168416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a35995fc5f578442a2ad8e0423b0e03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
