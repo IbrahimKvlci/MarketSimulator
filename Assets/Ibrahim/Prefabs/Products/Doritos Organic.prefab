@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: -3985223960040474661}
   - component: {fileID: -3376459522601609138}
   - component: {fileID: 544711764887739497}
-  m_Layer: 0
+  - component: {fileID: 2313550127311659996}
+  m_Layer: 6
   m_Name: Doritos Organic
   m_TagString: carryitem
   m_Icon: {fileID: 0}
@@ -137,3 +138,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.21003956, y: 0.2915099, z: 0.06971164}
   m_Center: {x: 0.012411967, y: -0.06757946, z: 0.0028923787}
+--- !u!114 &2313550127311659996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140819613996097110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5131a1a6ebb034e830277ffdb4813a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _product: {fileID: 2699636707644256680, guid: a214461e9e7b58f4899dedc76beb9a1e, type: 3}
+  _count: 1

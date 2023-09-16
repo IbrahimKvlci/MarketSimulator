@@ -31,8 +31,20 @@ public class Player : MonoBehaviour
     void Update()
     {
         PickUp();
-        PutProductsToShelf(_product,_productsCount);
+        if(_carryObject != null)
+        {
+            if (_carryObject.GetComponent<Cargo>() != null)
+            {
+                PutProductsToShelf(ref _carryObject.GetComponent<Cargo>()._product,ref _carryObject.GetComponent<Cargo>()._count);
+            }
+        }
+        
+        
         TakeProductOnShelf();
+        if (_carryObject == null)
+        {
+            _isCarrying = false;
+        }
     }
 
     void PickUp()
@@ -86,13 +98,13 @@ public class Player : MonoBehaviour
             }
         }
         
-        else
+        else if(_carryObject!= null)
         {
             RaycastHit hit;
             if(Physics.Raycast(_camera.transform.position,_camera.transform.forward,out hit, 5,_layerMask)&& hit.transform.tag == "ground")
             {
 
-                float objectScale = _carryObject.GetComponent<Collider>().bounds.extents.y+0.5f;
+                float objectScale = _carryObject.GetComponent<Collider>().bounds.extents.y+0.1f;
                 _carryObject.transform.position = hit.point + Vector3.up * objectScale;
                 _carryObject.transform.rotation = Quaternion.Euler(0, _carryObject.transform.eulerAngles.y, _carryObject.transform.eulerAngles.z);
 
@@ -124,7 +136,7 @@ public class Player : MonoBehaviour
        
         
 
-        if (_isCarrying)
+        if (_isCarrying&&_carryObject!=null)
         {
             if (Input.GetKey(KeyCode.Q))
             {
@@ -142,7 +154,7 @@ public class Player : MonoBehaviour
 
     }
 
-    void PutProductsToShelf(GameObject products,int productsCount)
+    void PutProductsToShelf(ref GameObject cargoProduct,ref int productCount)
     {
         RaycastHit hit;
         if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, 5))
@@ -150,53 +162,52 @@ public class Player : MonoBehaviour
 
             if (hit.collider.tag == "shelf")
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    Debug.Log(productsCount);
-                    if (hit.collider.transform.childCount>1)
+                    if (hit.collider.transform.childCount>1&&cargoProduct!=null)
                     {
 
-                        if(_product.tag== hit.collider.transform.GetChild(1).tag)
+                        if(cargoProduct.tag== hit.collider.transform.GetChild(1).tag)
                         {
                             int productsOnShelfCount = hit.collider.transform.GetChild(1).GetComponent<ProductsOnShelf>()._currentProductsCount;
                             int productsMaxCount = hit.collider.transform.GetChild(1).GetComponent<ProductsOnShelf>()._maxProductsCount;
-                            int productsWillAddCount = productsCount;
+                            int productsWillAddCount = productCount;
                             if (productsWillAddCount + productsOnShelfCount <= productsMaxCount)
                             {
                                 hit.collider.transform.GetChild(1).GetComponent<ProductsOnShelf>()._currentProductsCount += productsWillAddCount;
-                                _productsCount = 0;
+                                productCount = 0;
                             }
                             else
                             {
                                 hit.collider.transform.GetChild(1).GetComponent<ProductsOnShelf>()._currentProductsCount += productsWillAddCount;
-                                _productsCount = productsWillAddCount - (productsMaxCount - productsOnShelfCount);
+                                productCount = productsWillAddCount - (productsMaxCount - productsOnShelfCount);
                             }
                         }
                         
 
                     }
-                    else if(_product!=null&&_productsCount>0)
+                    else if(cargoProduct != null&& productCount > 0)
                     {
-                        var product = Instantiate(_product);
+                        var product = Instantiate(cargoProduct);
                         product.transform.SetParent(hit.collider.transform);
                         product.transform.localScale= Vector3.one;
                         product.transform.localPosition = Vector3.zero;
                         product.transform.localRotation= Quaternion.identity;
-                        if (_productsCount <= product.GetComponent<ProductsOnShelf>()._maxProductsCount)
+                        if (productCount <= product.GetComponent<ProductsOnShelf>()._maxProductsCount)
                         {
-                            product.GetComponent<ProductsOnShelf>()._currentProductsCount = _productsCount;
-                            _productsCount = 0;
+                            product.GetComponent<ProductsOnShelf>()._currentProductsCount = productCount;
+                            productCount = 0;
                         }
                         else
                         {
                             product.GetComponent<ProductsOnShelf>()._currentProductsCount = product.GetComponent<ProductsOnShelf>()._maxProductsCount;
-                            _productsCount -= product.GetComponent<ProductsOnShelf>()._maxProductsCount;
+                            productCount -= product.GetComponent<ProductsOnShelf>()._maxProductsCount;
                         }
                         
                     }
                     if (_productsCount == 0)
                     {
-                        _product= null;
+                        cargoProduct = null;
                     }
 
                 }

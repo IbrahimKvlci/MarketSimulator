@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 5278922553063890898}
   - component: {fileID: 2950817332453881021}
   - component: {fileID: -2228220752566074944}
-  m_Layer: 0
+  - component: {fileID: 1127437803177991128}
+  m_Layer: 6
   m_Name: prlgles (30)
   m_TagString: carryitem
   m_Icon: {fileID: 0}
@@ -137,3 +138,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a35995fc5f578442a2ad8e0423b0e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1127437803177991128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541092026271168416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5131a1a6ebb034e830277ffdb4813a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _product: {fileID: 595187982583618224, guid: 1bb2b42db5df0ef4390a15cd22a3ee09, type: 3}
+  _count: 1
