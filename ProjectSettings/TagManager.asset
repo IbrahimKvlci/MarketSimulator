@@ -11,6 +11,7 @@ TagManager:
   - productsonshelf
   - doritos
   - prlngels
+  - basket
   layers:
   - Default
   - TransparentFX

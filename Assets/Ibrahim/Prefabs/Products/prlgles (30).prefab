@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2950817332453881021}
   - component: {fileID: -2228220752566074944}
   - component: {fileID: 1127437803177991128}
+  - component: {fileID: 486979265232885796}
   m_Layer: 6
   m_Name: prlgles (30)
   m_TagString: carryitem
@@ -35,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &303271774170951420
 MeshFilter:
@@ -152,3 +153,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _product: {fileID: 595187982583618224, guid: 1bb2b42db5df0ef4390a15cd22a3ee09, type: 3}
   _count: 1
+--- !u!114 &486979265232885796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541092026271168416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e38654d1ef9ee40ae10c9387d5de3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: 1
+  <Name>k__BackingField: Prlngles
+  <CategoryId>k__BackingField: 1
+  <Image>k__BackingField: {fileID: 21300000, guid: d903dda2921197e4390718bd4b2ec874, type: 3}
+  <Price>k__BackingField: 5

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -3376459522601609138}
   - component: {fileID: 544711764887739497}
   - component: {fileID: 2313550127311659996}
+  - component: {fileID: 2364233338891856518}
   m_Layer: 6
   m_Name: Doritos Organic
   m_TagString: carryitem
@@ -35,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3624374456359141254
 MeshFilter:
@@ -152,3 +153,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _product: {fileID: 2699636707644256680, guid: a214461e9e7b58f4899dedc76beb9a1e, type: 3}
   _count: 1
+--- !u!114 &2364233338891856518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140819613996097110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e38654d1ef9ee40ae10c9387d5de3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: 2
+  <Name>k__BackingField: Doritos Organic
+  <CategoryId>k__BackingField: 1
+  <Image>k__BackingField: {fileID: 21300000, guid: 96b0f21557d70684c924108e28ec2256, type: 3}
+  <Price>k__BackingField: 2
