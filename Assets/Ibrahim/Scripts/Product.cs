@@ -9,5 +9,5 @@ public class Product:MonoBehaviour
     [field: SerializeField] public int CategoryId { get; set; }
     [field: SerializeField] public Sprite Image { get; set; }
     [field: SerializeField] public float Price { get; set; }
-
+    [field: SerializeField] public GameObject ProductsOnShelf { get; set; }
 }

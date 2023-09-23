@@ -12,6 +12,7 @@ TagManager:
   - doritos
   - prlngels
   - basket
+  - cargoplace
   layers:
   - Default
   - TransparentFX
