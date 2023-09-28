@@ -45,6 +45,27 @@ public class Player : MonoBehaviour
         {
             _isCarrying = false;
         }
+        MakeVisibleWhenPlayerLook();
+    }
+
+    void MakeVisibleWhenPlayerLook()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(_camera.transform.position,_camera.transform.forward, out hit,_range))
+        {
+            if (hit.collider.tag == "makevisible")
+            {
+                hit.collider.gameObject.SetActive(true);
+            }
+            else
+            {
+                foreach (var item in GameObject.FindGameObjectsWithTag("makevisible"))
+                {
+                    item.SetActive(false);
+                }
+            }
+        }
+        
     }
 
     void PickUp()

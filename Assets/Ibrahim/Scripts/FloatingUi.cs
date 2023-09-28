@@ -7,7 +7,7 @@ public class FloatingUi : MonoBehaviour
     [SerializeField] GameObject _cam;
     void Start()
     {
-
+        _cam = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     // Update is called once per frame
